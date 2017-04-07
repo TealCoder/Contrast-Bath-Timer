@@ -1,0 +1,91 @@
+<html>
+<head>
+<title>Icing timing</title>
+
+<script language=javascript>
+<!--
+// Not working: sound.Play() is not a function
+function PlaySound(soundObj) {
+  var sound = document.getElementById(soundObj);
+  sound.Play();
+}
+
+var ice_sound = new Audio('ice.wav');
+var warm_sound = new Audio('warm.wav');
+var done_sound = new Audio('done.wav');
+var count = 0;
+var seconds_to_wait = 30;
+
+function start()
+{
+  ice();
+}
+
+function countDown(func, seconds )
+{
+  document.getElementById("timer").innerHTML = seconds;
+  if (seconds > 0)
+  {
+    setTimeout(countDown, 1000, func, seconds-1);
+  }
+  else
+  {
+    func()
+  }
+}
+
+function ice()
+{
+  document.getElementById("msgs").innerHTML = "ICE " + Math.floor(count/2+1) + "/6";
+  document.body.style.backgroundColor ="#9999ff";
+  ice_sound.play();
+  if ( count == 10 )
+  {
+    countDown(warm,seconds_to_wait);
+    done();
+  }
+  else
+  {
+    count ++ ;
+    countDown(warm,seconds_to_wait);
+  }
+}
+
+function warm()
+{
+  document.getElementById("msgs").innerHTML =  "WARM " + Math.floor(count/2+1) + "/5";
+  document.body.style.backgroundColor = "#ffcc99";
+  warm_sound.play();
+  count ++ ;
+  countDown(ice,seconds_to_wait);
+}
+
+function done()
+{
+  document.getElementById("msgs").innerHTML =  "Done."
+  document.body.style.backgroundColor = "#ffffff";
+  done_sound.play();
+}
+//-->
+</script>
+
+</head>
+<body bgcolor="#ffffff" fgcolor="#000000">
+<center><h1>
+<div id=msgs>
+  <a href="javascript:start()">Start</a>
+</div>
+</h1>
+<div id="timer">30</div>
+</center>
+
+
+<!--
+<embed src="ice.wav" autostart="false" width="0" height="0" id="ice_sound"
+enablejavascript="true">
+
+<embed src="warm.wav" autostart="false" width="0" height="0" id="warm_sound"
+enablejavascript="true">
+-->
+</body>
+</html>
