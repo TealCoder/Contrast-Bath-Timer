@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <title>Icing timing</title>
 
+<meta name=viewport content='width=450'>
+
 <script language=javascript>
 <!--
 // Not working: sound.Play() is not a function
@@ -43,8 +45,7 @@ function ice()
   ice_sound.play();
   if ( count == 10 )
   {
-    countDown(warm,seconds_to_wait);
-    done();
+    countDown(done,seconds_to_wait);
   }
   else
   {
